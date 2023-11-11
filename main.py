@@ -9,8 +9,13 @@ def index():
     if request.method == 'POST':
         url = request.form['url']
         youtube = YouTube(url)
-        video = youtube.streams.get_highest_resolution()
+        
+        # Get the highest resolution video stream with audio
+        video = youtube.streams.filter(file_extension='mp4', progressive=True).order_by('resolution').desc().first()
+        
+        # Download the video with audio
         video.download('./downloads')
+
         return """
             <script>
                 alert('Video downloaded!');
@@ -22,4 +27,3 @@ def index():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', debug=False)
-
