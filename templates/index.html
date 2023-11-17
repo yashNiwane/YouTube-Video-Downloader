@@ -21,9 +21,7 @@ input[type="text"][name="url"] {
   color: #444444;
   transition: all 0.3s ease;
   width: 90%;
-display: block;
-  margin: auto;
-  
+  margin: auto;  
 }
 
 input[type="text"][name="url"]:focus {
@@ -42,7 +40,7 @@ input[type="submit"] {
   cursor: pointer; /* Add cursor on hover */
   border-radius: 5px; /* Rounded corners */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4); /* Add shadow */
-display: block;
+  display: block;
   margin: auto;
 }
 
@@ -59,16 +57,22 @@ label{
 </style>
 </head>
 <body>
-	<h1>YouTube Downloader</h1>
-	<form method="POST" action="/">
-		<label>Enter YouTube video URL:</label><br>
-		<input type="text" name="url"><br id="search-bar">
-		<input type="submit" value="Download">
-	</form>
-	
-	<script>
-export FLASK_APP=app.py
-  flask run</script>
+    <h1>YouTube Downloader</h1>
+    <form method="POST" action="/">
+        <label>Enter YouTube video URL:</label><br>
+        <input type="text" name="url"><br id="search-bar">
+        <input type="submit" value="Continue">
+    </form>
+
+    {% if video_title %}
+        <p>Video "{{ video_title }}" downloaded!</p>
+
+        <!-- Add the video element with the source attribute -->
+        <video width="640" height="360" controls>
+            <source src="{{ url_for('static', filename='downloads/' + video_title + '.mp4') }}" type="video/mp4">
+               
+            Your browser does not support the video tag.
+        </video>
+    {% endif %}
 </body>
 </html>
-
